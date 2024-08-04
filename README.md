@@ -52,7 +52,9 @@ The project uses Docker Compose to manage the services. Configuration can be fou
 
 
 ## Stopping the Services
+
+This command will stop and remove all containers, networks, and volumes defined in the docker-compose.yml file.
+
    ```sh
    docker-compose down
 
-This command will stop and remove all containers, networks, and volumes defined in the docker-compose.yml file.
