@@ -44,13 +44,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ task, onClose }) => {
     <div className="task-form-container">
       <form onSubmit={handleSubmit}>
         <input type="text" placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} required />
-        <input
-          type="text"
-          placeholder="Description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          required
-        />
+        <input type="text" placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)} required />
         <div>
           <button type="submit" className="submit-button">
             {isEditMode ? "Update Task" : "Add Task"}

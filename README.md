@@ -1,24 +1,58 @@
-# taskManager
+# Task Manager Application
 
-> Version: 2.0.0
+This project is a task management application consisting of a backend Node.js server and a frontend React application. The backend connects to a MongoDB database, and Docker Compose is used to manage the services.
 
-## Install
+## Prerequisites
 
-This project uses VS Code devcontainers to ensure the development environment is always consistent.  
-You'll need to ensure you have Docker available on your machine before working with taskManager.
+Before you begin, ensure you have met the following requirements:
 
-1. Clone the [repo]() with `git clone `
-2. Open the workspace in VS Code
-3. You should be propmpted to re-open the workspace in Docker. If not, ensure you have the [dev containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension installed.
-4. If this is your first time running the project, wait for the container to initialise. Subsequent loads will be faster.
-5. Once the environment has started, install with `yarn`
+1. **Docker and Docker Compose**: 
+   - **Windows**: Install Docker Desktop which includes Docker Compose. [Download Docker Desktop](https://www.docker.com/products/docker-desktop).
+   - **macOS**: Install Docker Desktop from the Docker website. [Download Docker Desktop](https://www.docker.com/products/docker-desktop).
+   - **Linux**: Install Docker and Docker Compose. You can find installation instructions on the Docker [official website](https://docs.docker.com/compose/install/).
 
-You're now ready to develop taskManager.
+2. **Git** (optional, for cloning the repository):
+   - Install Git from [git-scm.com](https://git-scm.com/).
 
-## Common Commands
+3. **Basic Knowledge**:
+   - Familiarity with Docker, Docker Compose, Node.js, and React.
 
-The most common commands are made available in the top level [package.json](./package.json)
+## Project Structure
 
-| Command             | Action                                  |
-| ------------------- | --------------------------------------- |
-| `yarn frontend:start` | Starts the taskManager front-end locally |
+The project consists of the following directories:
+
+- `task-manager-backend/` - The backend Node.js server.
+- `task-manager-frontend/` - The frontend React application.
+
+## Getting Started
+
+To get started with the project, follow these steps:
+
+1. **Clone the Repository**:
+   ```sh
+   git clone <repository-url>
+   cd <repository-folder>
+
+2. **Build and Start the Services**:
+   ```sh
+   docker-compose up --build
+
+3. **Access the Application**:
+   ```sh
+   http://localhost:3000
+
+
+## Configuration
+
+The project uses Docker Compose to manage the services. Configuration can be found in the docker-compose.yml file.
+
+- `MongoDB` - Initialized with a default username (admin) and password (password). Update these credentials in the docker-compose.yml file as needed.
+- `Backend` - Connects to MongoDB using the MONGO_URI environment variable.
+- `Frontend` - Connects to the backend API using the REACT_APP_API_BASE_URL environment variable.
+
+
+## Stopping the Services
+   ```sh
+   docker-compose down
+
+This command will stop and remove all containers, networks, and volumes defined in the docker-compose.yml file.

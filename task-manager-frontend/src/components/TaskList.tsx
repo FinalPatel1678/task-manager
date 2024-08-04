@@ -78,11 +78,7 @@ const TaskList: React.FC = () => {
       </div>
       {showForm && <TaskForm task={selectedTask || undefined} onClose={handleFormClose} />}
       {showConfirmModal && (
-        <ConfirmationModal
-          message="Are you sure you want to delete this task?"
-          onConfirm={confirmDelete}
-          onCancel={cancelDelete}
-        />
+        <ConfirmationModal message="Are you sure you want to delete this task?" onConfirm={confirmDelete} onCancel={cancelDelete} />
       )}
       <ul>
         {tasks.map((task) => (

@@ -76,10 +76,7 @@ const tasksSlice = createSlice({
       })
       .addCase(
         fetchTasks.fulfilled,
-        (
-          state,
-          action: PayloadAction<{ tasks: Task[]; totalTasks: number; totalPages: number; currentPage: number }>
-        ) => {
+        (state, action: PayloadAction<{ tasks: Task[]; totalTasks: number; totalPages: number; currentPage: number }>) => {
           state.status = "succeeded";
           state.tasks = action.payload.tasks;
           state.totalTasks = action.payload.totalTasks;
@@ -107,8 +104,7 @@ const tasksSlice = createSlice({
         (action): action is PayloadAction<unknown> => action.type.endsWith("/rejected"),
         (state, action) => {
           state.status = "failed";
-          state.error =
-            (action as unknown as { error: { message: string } }).error.message || "An unknown error occurred";
+          state.error = (action as unknown as { error: { message: string } }).error.message || "An unknown error occurred";
         }
       );
   },

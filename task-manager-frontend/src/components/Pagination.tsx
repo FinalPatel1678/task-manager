@@ -13,11 +13,7 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPage
   return (
     <div className="pagination">
       {pages.map((page) => (
-        <button
-          key={page}
-          className={`page-button ${page === currentPage ? "active" : ""}`}
-          onClick={() => onPageChange(page)}
-        >
+        <button key={page} className={`page-button ${page === currentPage ? "active" : ""}`} onClick={() => onPageChange(page)}>
           {page}
         </button>
       ))}

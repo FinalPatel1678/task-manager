@@ -1,5 +1,5 @@
 import React from "react";
-import '../styles/ConfirmationModal.css';
+import "../styles/ConfirmationModal.css";
 
 interface ConfirmationModalProps {
   message: string;
@@ -13,8 +13,12 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({ message, onConfir
       <div className="confirmation-modal-content">
         <p>{message}</p>
         <div className="confirmation-modal-actions">
-          <button onClick={onConfirm} className="confirm-button">Yes</button>
-          <button onClick={onCancel} className="cancel-button">No</button>
+          <button onClick={onConfirm} className="confirm-button">
+            Yes
+          </button>
+          <button onClick={onCancel} className="cancel-button">
+            No
+          </button>
         </div>
       </div>
     </div>
