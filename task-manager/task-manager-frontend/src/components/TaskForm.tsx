@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { addTask, updateTask } from "../features/tasks/taskSlice";
 import { Task } from "../features/tasks/types";
 import { AppDispatch } from "store";
+import "../styles/TaskForm.css";
 
 interface TaskFormProps {
   task?: Task;
@@ -40,14 +41,26 @@ const TaskForm: React.FC<TaskFormProps> = ({ task, onClose }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} required />
-      <input type="text" placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)} required />
-      <button type="submit">{isEditMode ? "Update Task" : "Add Task"}</button>
-      <button type="button" onClick={onClose}>
-        Cancel
-      </button>
-    </form>
+    <div className="task-form-container">
+      <form onSubmit={handleSubmit}>
+        <input type="text" placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} required />
+        <input
+          type="text"
+          placeholder="Description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          required
+        />
+        <div>
+          <button type="submit" className="submit-button">
+            {isEditMode ? "Update Task" : "Add Task"}
+          </button>
+          <button type="button" className="cancel-button" onClick={onClose}>
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 

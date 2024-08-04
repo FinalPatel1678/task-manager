@@ -13,8 +13,16 @@ interface TaskData {
 const taskRoutes: FastifyPluginAsync = async (fastify) => {
   fastify.get("/", async (request: FastifyRequest, reply: FastifyReply) => {
     try {
-      const tasks = await Task.find();
-      reply.send(tasks);
+      const { page = 1, limit = 10 } = request.query as { page?: number; limit?: number };
+      const skip = (page - 1) * limit;
+      const tasks = await Task.find().skip(skip).limit(limit);
+      const totalTasks = await Task.countDocuments();
+      reply.send({
+        tasks,
+        totalTasks,
+        totalPages: Math.ceil(totalTasks / limit),
+        currentPage: page,
+      });
     } catch (err) {
       reply.status(500).send({ error: "Failed to fetch tasks" });
     }

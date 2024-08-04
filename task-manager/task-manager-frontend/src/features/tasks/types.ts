@@ -8,6 +8,10 @@ export interface TaskState {
   tasks: Task[];
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
+  currentPage: number;
+  itemsPerPage: number;
+  totalTasks: number;
+  totalPages: number;
 }
 
 export interface AddTaskPayload {

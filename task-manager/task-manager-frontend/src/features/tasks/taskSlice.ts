@@ -7,10 +7,17 @@ const initialState: TaskState = {
   tasks: [],
   status: "idle",
   error: null,
+  currentPage: 1,
+  itemsPerPage: 10,
+  totalTasks: 0,
+  totalPages: 0,
 };
 
-export const fetchTasks = createAsyncThunk<Task[]>("tasks/fetchTasks", async () => {
-  const response = await fetch(`${BASE_URL}/tasks`);
+export const fetchTasks = createAsyncThunk<
+  { tasks: Task[]; totalTasks: number; totalPages: number; currentPage: number },
+  { page: number; limit: number }
+>("tasks/fetchTasks", async ({ page, limit }) => {
+  const response = await fetch(`${BASE_URL}/tasks?page=${page}&limit=${limit}`);
   if (!response.ok) {
     throw new Error("Failed to fetch tasks");
   }
@@ -54,16 +61,32 @@ export const deleteTask = createAsyncThunk<DeleteTaskPayload, string>("tasks/del
 const tasksSlice = createSlice({
   name: "tasks",
   initialState,
-  reducers: {},
+  reducers: {
+    setCurrentPage(state, action: PayloadAction<number>) {
+      state.currentPage = action.payload;
+    },
+    setItemsPerPage(state, action: PayloadAction<number>) {
+      state.itemsPerPage = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchTasks.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(fetchTasks.fulfilled, (state, action: PayloadAction<Task[]>) => {
-        state.status = "succeeded";
-        state.tasks = action.payload;
-      })
+      .addCase(
+        fetchTasks.fulfilled,
+        (
+          state,
+          action: PayloadAction<{ tasks: Task[]; totalTasks: number; totalPages: number; currentPage: number }>
+        ) => {
+          state.status = "succeeded";
+          state.tasks = action.payload.tasks;
+          state.totalTasks = action.payload.totalTasks;
+          state.totalPages = action.payload.totalPages;
+          state.currentPage = action.payload.currentPage;
+        }
+      )
       .addCase(fetchTasks.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message || "Failed to fetch tasks";
@@ -84,10 +107,12 @@ const tasksSlice = createSlice({
         (action): action is PayloadAction<unknown> => action.type.endsWith("/rejected"),
         (state, action) => {
           state.status = "failed";
-          state.error = (action as unknown as { error: { message: string } }).error.message || "An unknown error occurred";
+          state.error =
+            (action as unknown as { error: { message: string } }).error.message || "An unknown error occurred";
         }
       );
   },
 });
 
+export const { setCurrentPage, setItemsPerPage } = tasksSlice.actions;
 export default tasksSlice.reducer;
