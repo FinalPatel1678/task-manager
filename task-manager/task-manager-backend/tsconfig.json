@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "outDir": "build",
+    "rootDir": "src",
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "es2019"
+    ]
+  },
+  "exclude": [
+    "node_modules",
+    "build",
+  ]
+}
